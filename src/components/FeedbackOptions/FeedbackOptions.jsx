@@ -7,8 +7,8 @@ const FeedbackOptions = ({ options, onLeaveFeedback }) => {
     <ListButtons>
       {options.map((option, index) => (
         <li key={index}>
-          <ButtonEl type="button" data-name={option} onClick={onLeaveFeedback}>
-            {option.charAt(0).toUpperCase() + option.slice(1)}
+          <ButtonEl type="button" onClick={() => onLeaveFeedback(option)}>
+            {option}
           </ButtonEl>
         </li>
       ))}

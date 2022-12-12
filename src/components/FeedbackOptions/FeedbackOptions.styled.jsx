@@ -9,6 +9,7 @@ export const ButtonEl = styled.button`
   background-color: #e0ffff;
   width: 60px;
   border: solid 1px;
+  text-transform: capitalize;
   border-radius: 2px;
   cursor: pointer;
 

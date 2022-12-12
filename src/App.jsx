@@ -11,16 +11,9 @@ class App extends Component {
     bad: 0,
   };
 
-  static counter;
-
-  onLeaveFeedback = event => {
-    // const kindFeedback = event.target.textContent;
-    const kindFeedback = event.target.dataset.name;
-    if (!this.counter) {
-      this.counter = true;
-    }
+  onLeaveFeedback = option => {
     this.setState(prevState => ({
-      [kindFeedback]: prevState[kindFeedback] + 1,
+      [option]: prevState[option] + 1,
     }));
   };
 
@@ -30,10 +23,12 @@ class App extends Component {
   };
 
   countPositiveFeedbackPercentage = () => {
-    return (this.state.good / this.countTotalFeedback()) * 100;
+    return (this.state.good / this.countTotalFeedback()) * 100 || 0;
   };
 
   render() {
+    const total = this.countTotalFeedback();
+    const positive = this.countPositiveFeedbackPercentage();
     const { good, neutral, bad } = this.state;
     const arrayKey = Object.keys(this.state);
     return (
@@ -43,9 +38,9 @@ class App extends Component {
           <FeedbackOptions
             options={arrayKey}
             onLeaveFeedback={this.onLeaveFeedback}
-          ></FeedbackOptions>
+          />
           {/* БЛОК КНОПОК */}
-          {!this.counter ? (
+          {!total ? (
             // Предупреждение
             <div>
               <Notification message="There is no feedback"></Notification>
@@ -57,9 +52,9 @@ class App extends Component {
               good={good}
               neutral={neutral}
               bad={bad}
-              total={this.countTotalFeedback}
-              positivePercentage={this.countPositiveFeedbackPercentage}
-            ></Statistics>
+              total={total}
+              positivePercentage={positive}
+            />
           )}
           {/* СТАТИСТИКА */}
         </Section>
