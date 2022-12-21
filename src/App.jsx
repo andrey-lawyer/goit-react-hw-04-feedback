@@ -5,15 +5,24 @@ import Section from './components/Section';
 import Notification from './components/Notification';
 
 const App = () => {
-  const [state, setState] = useState({
-    good: 0,
-    neutral: 0,
-    bad: 0,
-  });
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutrale] = useState(0);
+  const [bad, setBad] = useState(0);
 
-  const { good, neutral, bad } = state;
   const onLeaveFeedback = option => {
-    setState(prevState => ({ ...prevState, [option]: prevState[option] + 1 }));
+    switch (option) {
+      case 'good':
+        setGood(good + 1);
+        break;
+      case 'neutral':
+        setNeutrale(neutral + 1);
+        break;
+      case 'bad':
+        setBad(bad + 1);
+        break;
+      default:
+        break;
+    }
   };
 
   const countTotalFeedback = () => {
@@ -26,7 +35,12 @@ const App = () => {
 
   const total = countTotalFeedback();
   const positive = countPositiveFeedbackPercentage();
-  const arrayKey = Object.keys(state);
+  const stateObject = {
+    good,
+    neutral,
+    bad,
+  };
+  const arrayKey = Object.keys(stateObject);
   return (
     <div className="Feedback">
       <Section title="Please leave feedback">
